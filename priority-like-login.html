@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8"><title>test- Priority-like Login</title>
+<style>body{font-family:sans-serif;max-width:420px;margin:24px auto;padding:0 16px}button,input{display:block;width:100%;margin:8px 0;padding:8px;font-size:15px}
+.or{text-align:center;background:#eef;padding:2px}#done{color:#064;margin-top:16px}</style></head>
+<body>
+<h1>test- ברוכים הבאים ל Priority Web (fixture)</h1>
+<p>Test page for an automated browser check (W-ACFF2E). It only imitates the SHAPE of a two-step login chooser; nothing is sent anywhere,
+any email + password is accepted, and the «code» step accepts 000000 only. Not affiliated with any vendor.</p>
+<div id="chooser">
+  <p>בחרו איך להתחבר</p>
+  <button type="button" id="ms">כניסה באמצעות Microsoft</button>
+  <button type="button" id="gg">כניסה באמצעות Google</button>
+  <div class="or">או</div>
+  <button type="button" id="by-email">כניסה באמצעות אימייל</button>
+</div>
+<form id="login" hidden onsubmit="return go(event)">
+  <label>כתובת אימייל <input id="email" name="email" type="email" autocomplete="username"></label>
+  <label>סיסמה <input id="password" name="password" type="password" autocomplete="current-password" placeholder="רשמו סיסמה..."></label>
+  <button type="submit" id="submit">התחברות</button>
+  <p><a href="#">שכחתי סיסמה</a> · <a href="#">הרשמה</a> · <a href="#" id="back">כניסה באמצעות Google או Microsoft</a></p>
+</form>
+<form id="code" hidden onsubmit="return code(event)">
+  <p>שלחנו קוד אימות לתיבת הדואר שלך</p>
+  <label>קוד אימות <input id="otp" name="otp" inputmode="numeric" autocomplete="one-time-code"></label>
+  <button type="submit">אישור</button>
+</form>
+<div id="done" aria-live="polite"></div>
+<script>
+function $(i){return document.getElementById(i)}
+$('by-email').onclick=function(){ $('chooser').hidden=true; $('login').hidden=false; };
+$('back').onclick=function(e){ e.preventDefault(); $('login').hidden=true; $('chooser').hidden=false; };
+$('ms').onclick=$('gg').onclick=function(){ $('done').textContent='test-: social sign-in is not part of this fixture'; };
+function go(e){ e.preventDefault(); if(!$('email').value||!$('password').value){ $('done').textContent='חסר אימייל או סיסמה'; return false; }
+  $('login').hidden=true; $('code').hidden=false; $('done').textContent=''; return false; }
+function code(e){ e.preventDefault(); $('done').textContent = $('otp').value==='000000' ? 'test-: מחובר (fixture)' : 'test-: קוד שגוי'; return false; }
+</script>
+</body></html>
