@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8"><title>test- readonly-until-click form</title>
+<style>body{font-family:sans-serif;max-width:640px;margin:24px auto;padding:0 16px}label{display:block;margin:12px 0}
+input{font-size:16px;padding:6px;width:220px}input[readonly]{background:#eee}#log{margin-top:16px;color:#064}</style></head>
+<body>
+<h1>test- טופס בדיקה: שדות שנפתחים רק אחרי לחיצה</h1>
+<p>Test page for an automated browser check (W-B0517C). Nothing here is sent anywhere. Like some ERP screens,
+the first two fields are read-only until you focus or click into them; «סה"כ» is always read-only.</p>
+<form id="order" onsubmit="return false">
+  <label>מס. לקוח <input id="customer" name="customer" readonly></label>
+  <label>מק"ט <input id="item" name="item" readonly></label>
+  <label>סה"כ <input id="total" name="total" readonly value="0.00"></label>
+  <button id="show" type="button">הצג מה נקלט</button>
+</form>
+<div id="log" aria-live="polite"></div>
+<script>
+var c = document.getElementById('customer'), i = document.getElementById('item');
+c.addEventListener('focus', function () { c.readOnly = false; });      // opens on focus
+i.addEventListener('mousedown', function () { i.readOnly = false; });  // opens on a click only
+document.getElementById('show').addEventListener('click', function () {
+  document.getElementById('log').textContent = 'נקלט: מס. לקוח = «' + c.value + '», מק"ט = «' + i.value + '»';
+});
+</script>
+</body></html>
