@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>test- download fixture</title></head>
+<body>
+<h1>test- download fixture (two documents)</h1>
+<p>Test page for an automated browser check. Both files are one-page dummy PDFs.</p>
+<button id="dl-both" type="button">Download both documents</button>
+<p><a href="test-a.pdf" download="test-a.pdf">test-a.pdf</a> · <a href="test-b.pdf" download="test-b.pdf">test-b.pdf</a></p>
+<script>
+document.getElementById('dl-both').addEventListener('click', function () {
+  ['test-a.pdf', 'test-b.pdf'].forEach(function (n) {
+    var a = document.createElement('a'); a.href = n; a.download = n; document.body.appendChild(a); a.click(); a.remove();
+  });
+});
+</script>
+</body></html>
